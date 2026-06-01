@@ -93,7 +93,7 @@ placed = gds.place_lekid_on_feedline(
         feedline_result=built_fl,
         lekid_result=built_lekid,
         spec=gds.LekidFeedlinePlacementSpec(
-            separation_microns=1.0*(cpw_gap_width+cpw_ground_width+gs_gap_width),
+            separation_microns=1.0*(cpw_gap_width+cpw_gnd_width+gs_gap_width),
             position_microns=0.0,
         )
     )
