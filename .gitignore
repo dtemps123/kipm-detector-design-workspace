@@ -1,2 +1,3 @@
 *.gds
+*.son
 .ipynb_checkpoints/*
