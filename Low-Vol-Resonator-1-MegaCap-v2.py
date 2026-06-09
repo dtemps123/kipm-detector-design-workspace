@@ -17,10 +17,10 @@ inductor_built.plot()
 # print(inductor_eval)
 
 idc_spec = gds.IdcSpec(
-    finger_count=18,
-    finger_trace_width_microns=20.0,
+    finger_count=36,
+    finger_trace_width_microns=10.0,
     # finger_length_microns=950.0,
-    finger_gap_width_microns=20.0,
+    finger_gap_width_microns=10.0,
     arm_trace_width_microns=80.0,
     arm_gap_width_microns=10.0,
     bounding_box_width_microns=1130.0,
@@ -99,4 +99,4 @@ placed = gds.place_lekid_on_feedline(
     )
 
 
-gds.write_built_gds("./Low-Vol-Resonator-1-MegaCap.gds", placed)
+gds.write_built_gds("./Low-Vol-Resonator-1-MegaCap-v2.gds", placed)

@@ -17,13 +17,13 @@ inductor_built.plot()
 # print(inductor_eval)
 
 idc_spec = gds.IdcSpec(
-    finger_count=18,
-    finger_trace_width_microns=20.0,
+    finger_count=42,
+    finger_trace_width_microns=10.0,
     # finger_length_microns=950.0,
-    finger_gap_width_microns=20.0,
+    finger_gap_width_microns=10.0,
     arm_trace_width_microns=80.0,
     arm_gap_width_microns=10.0,
-    bounding_box_width_microns=1130.0,
+    bounding_box_width_microns=2260.0,
     final_finger_length_fraction=1.0,
     include_bottom_bars=True,
     omit_top_arm_stubs=True,
@@ -93,10 +93,10 @@ placed = gds.place_lekid_on_feedline(
         feedline_result=built_fl,
         lekid_result=built_lekid,
         spec=gds.LekidFeedlinePlacementSpec(
-            separation_microns=1.0*(cpw_gap_width+cpw_gnd_width+gs_gap_width),
+            separation_microns=1.0*(cpw_gap_width+cpw_gnd_width+gs_gap_width)+10.0,
             position_microns=0.0,
         )
     )
 
 
-gds.write_built_gds("./Low-Vol-Resonator-1-MegaCap.gds", placed)
+gds.write_built_gds("./Low-Vol-Resonator-1-MegaCap-v4-mod1.gds", placed)
