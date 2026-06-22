@@ -2,3 +2,5 @@
 *.son
 sondata/*
 .ipynb_checkpoints/*
+*sondata*
+*.DS_Store
