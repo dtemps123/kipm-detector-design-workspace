@@ -4,3 +4,4 @@ sondata/*
 .ipynb_checkpoints/*
 *sondata*
 *.DS_Store
+*__pycahce__
