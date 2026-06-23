@@ -4,11 +4,11 @@ import gds_geometry_evaluator as gds
 
 
 GRresolve_var3_params = {
-    "trace_um":           4.0,
-    "gap_um":             4.0,
-    "res_width_um":     284.0,
+    "trace_um":          10.0, # 4.0,
+    "gap_um":            8.0,
+    "res_width_um":     208.0, # 284.0,
     "cap_width_um":    2260.0,
-    "ind_height_um":    250.0,
+    "ind_height_um":    100.0, # 250.0,
     "cap_trace_um":      10.0,
     "cap_finger_num":    39,
     "cap_finger_gap_um": 10.0,
@@ -68,13 +68,12 @@ def build_resonator(params=GRresolve_var3_params, return_all_objs=False):
 if __name__ == "__main__":
 
     built_lekid = build_resonator(return_all_objs=False)
-    built_lekid.plot()
 
     lekid_eval = gds.evaluate_generated_double_meander_with_idc(built_lekid, 
                                                    effective_permittivity=9.08, 
                                                    kinetic_inductance_per_square_nh=0.0, 
-                                                   film_thickness_nanometers=30.0
+                                                   film_thickness_nanometers=100.0
                                                   )
 
     print(lekid_eval)
-    plt.show()
+    built_lekid.plot()
