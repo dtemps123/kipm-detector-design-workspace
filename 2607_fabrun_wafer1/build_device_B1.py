@@ -47,7 +47,7 @@ def build_device(params = CPW_params):
 
     ## Collect all the resonator designs
     all_res = [
-        build_GRres_var3(), ## Mega-Cap at 3.9 GHz
+        build_GRres_var3(), ## Mega-Cap at 4.23 GHz
         build_MLA5G_var2(), ## MLA5G at 4 GHz
         build_MLA5G_NTvar1(), ## MLA5G narrow trace at 5.96 GHz
         build_MLA5G_var1(), ## MLA5G at 6 GHz
