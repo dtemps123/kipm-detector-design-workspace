@@ -59,5 +59,5 @@ def build_device(params = CPW_params):
 if __name__ == "__main__":
 
     built_device = build_device()
-    gds.write_built_gds("./GRres_var3_testgeom.gds", built_device)
+    gds.write_built_gds("./MLA5G_var2_testgeom.gds", built_device)
     built_device.plot()
