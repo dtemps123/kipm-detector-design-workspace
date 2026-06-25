@@ -6,8 +6,8 @@ import gds_geometry_evaluator as gds
 MLA5G_narrowtrace_var1_params = {
     "trace_um":           8.0,
     "gap_um":             2.0,
-    "inner_gap_um":       8.0,
-    "res_width_um":    1090.0,
+    "inner_gap_um":       2.0,
+    "res_width_um":    1130.0,
     "cap_width_um":    1130.0,
     "ind_height_um":    404.0,
     "cap_trace_um":      20.0,
