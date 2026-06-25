@@ -19,7 +19,7 @@ MLA5G_var1_params = {
     "gs_gap_width_um":   20.0,
 }
 
-def build_resonator(params=MLA5G_var1_params, return_all_objs=False, ind_ft_spec=None):
+def build_resonator(params=MLA5G_var1_params, return_all_objs=False, ind_ft_spec=None, idc_ft_spec=None, gs_ft_spec=None):
 
     ## Define and build the inductor
     inductor_spec = gds.DoubleMeanderSpec(
@@ -52,6 +52,7 @@ def build_resonator(params=MLA5G_var1_params, return_all_objs=False, ind_ft_spec
         horizontal_gap_microns=params["gs_gap_width_um"],
         upper_gap_microns=params["gs_gap_width_um"],
         lower_gap_microns=params["gs_gap_width_um"],
+        flux_trap_spec=gs_ft_spec,
     )
 
     ## Build the whole assembly
@@ -59,6 +60,7 @@ def build_resonator(params=MLA5G_var1_params, return_all_objs=False, ind_ft_spec
                             inductor_spec=inductor_spec,
                             idc_spec=idc_spec,
                             ground_shield_spec=ground_shield_spec,
+                            idc_flux_trap_spec=idc_ft_spec
                         )
 
     if return_all_objs:

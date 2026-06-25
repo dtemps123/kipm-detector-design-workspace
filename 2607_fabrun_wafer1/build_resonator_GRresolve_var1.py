@@ -6,8 +6,11 @@ import gds_geometry_evaluator as gds
 GRresolve_var1_params = {
     "trace_um":           4.0,
     "gap_um":             4.0,
+    "inner_gap_um":       4.0,
     "res_width_um":     284.0,
+    "cap_width_um":     284.0,
     "ind_height_um":    250.0,
+    "cap_trace_um":       4.0,
     "cap_finger_num":    16,
     "cap_finger_gap_um":  8.0,
     "cap_arm_width_um":  12.0,
@@ -16,7 +19,8 @@ GRresolve_var1_params = {
     "gs_gap_width_um":   20.0,
 }
 
-def build_resonator(params=GRresolve_var1_params, return_all_objs=False):
+
+def build_resonator(params=GRresolve_var1_params, return_all_objs=False, ind_ft_spec=None, idc_ft_spec=None, gs_ft_spec=None):
 
     ## Define and build the inductor
     inductor_spec = gds.DoubleMeanderSpec(
@@ -24,21 +28,22 @@ def build_resonator(params=GRresolve_var1_params, return_all_objs=False):
         gap_width_microns=params["gap_um"],
         bounding_box_width_microns=params["res_width_um"],
         bounding_box_height_microns=params["ind_height_um"],
-        meander_inner_gap_width_microns=params["gap_um"],
+        meander_inner_gap_width_microns=params["inner_gap_um"],
+        flux_trap_spec=ind_ft_spec,
     )
     # inductor_built = gds.build_double_meander(inductor_spec)
 
     ## Define and build the capacitor
     idc_spec = gds.IdcSpec(
         finger_count=params["cap_finger_num"],
-        finger_trace_width_microns=params["trace_um"],
+        finger_trace_width_microns=params["cap_trace_um"],
         finger_gap_width_microns=params["cap_finger_gap_um"],
         arm_trace_width_microns=params["cap_arm_width_um"],
         arm_gap_width_microns=params["cap_arm_gap_um"],
-        bounding_box_width_microns=params["res_width_um"],
+        bounding_box_width_microns=params["cap_width_um"],
         final_finger_length_fraction=1.0,
         include_bottom_bars=True,
-        omit_top_arm_stubs=False,
+        omit_top_arm_stubs=True,
     )
     # idc_built = gds.build_idc(idc_spec)
 
@@ -48,6 +53,7 @@ def build_resonator(params=GRresolve_var1_params, return_all_objs=False):
         horizontal_gap_microns=params["gs_gap_width_um"],
         upper_gap_microns=params["gs_gap_width_um"],
         lower_gap_microns=params["gs_gap_width_um"],
+        flux_trap_spec=gs_ft_spec,
     )
 
     ## Build the whole assembly
@@ -55,6 +61,7 @@ def build_resonator(params=GRresolve_var1_params, return_all_objs=False):
                             inductor_spec=inductor_spec,
                             idc_spec=idc_spec,
                             ground_shield_spec=ground_shield_spec,
+                            idc_flux_trap_spec=idc_ft_spec
                         )
 
     if return_all_objs:

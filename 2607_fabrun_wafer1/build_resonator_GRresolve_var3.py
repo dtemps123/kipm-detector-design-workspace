@@ -5,7 +5,8 @@ import gds_geometry_evaluator as gds
 
 GRresolve_var3_params = {
     "trace_um":          10.0, # 4.0,
-    "gap_um":            8.0,
+    "gap_um":             8.0,
+    "inner_gap_um":      10.0, # 4.0,
     "res_width_um":     208.0, # 284.0,
     "cap_width_um":    2260.0,
     "ind_height_um":    100.0, # 250.0,
@@ -18,7 +19,7 @@ GRresolve_var3_params = {
     "gs_gap_width_um":   20.0,
 }
 
-def build_resonator(params=GRresolve_var3_params, return_all_objs=False):
+def build_resonator(params=GRresolve_var3_params, return_all_objs=False, ind_ft_spec=None, idc_ft_spec=None, gs_ft_spec=None):
 
     ## Define and build the inductor
     inductor_spec = gds.DoubleMeanderSpec(
@@ -26,7 +27,8 @@ def build_resonator(params=GRresolve_var3_params, return_all_objs=False):
         gap_width_microns=params["gap_um"],
         bounding_box_width_microns=params["res_width_um"],
         bounding_box_height_microns=params["ind_height_um"],
-        meander_inner_gap_width_microns=params["gap_um"],
+        meander_inner_gap_width_microns=params["inner_gap_um"],
+        flux_trap_spec=ind_ft_spec,
     )
     # inductor_built = gds.build_double_meander(inductor_spec)
 
@@ -40,7 +42,7 @@ def build_resonator(params=GRresolve_var3_params, return_all_objs=False):
         bounding_box_width_microns=params["cap_width_um"],
         final_finger_length_fraction=1.0,
         include_bottom_bars=True,
-        omit_top_arm_stubs=False,
+        omit_top_arm_stubs=True,
     )
     # idc_built = gds.build_idc(idc_spec)
 
@@ -50,6 +52,7 @@ def build_resonator(params=GRresolve_var3_params, return_all_objs=False):
         horizontal_gap_microns=params["gs_gap_width_um"],
         upper_gap_microns=params["gs_gap_width_um"],
         lower_gap_microns=params["gs_gap_width_um"],
+        flux_trap_spec=gs_ft_spec,
     )
 
     ## Build the whole assembly
@@ -57,6 +60,7 @@ def build_resonator(params=GRresolve_var3_params, return_all_objs=False):
                             inductor_spec=inductor_spec,
                             idc_spec=idc_spec,
                             ground_shield_spec=ground_shield_spec,
+                            idc_flux_trap_spec=idc_ft_spec
                         )
 
     if return_all_objs:

@@ -19,7 +19,39 @@ CPW_params = {
     "style": "Caltech"
 }
 
+FT_params = {
+    "trap_width_um": 5.0,
+    "res_trap_pitch_um": 15.0,
+    "gp_trap_pitch_um": 150.0,
+}
+
 def build_device(params = CPW_params):
+
+    ## Define the flux trap specifications for each object
+
+    ft_for_IDCs = gds.FluxTrapSpec(
+        trap_width_microns=FT_params["trap_width_um"], 
+        horizontal_separation_microns=FT_params["res_trap_pitch_um"],
+        edge_margin_microns=FT_params["trap_width_um"],
+    )
+
+    ft_for_GSs = gds.FluxTrapSpec(
+        trap_width_microns=FT_params["trap_width_um"],
+        horizontal_separation_microns=FT_params["res_trap_pitch_um"],
+        edge_margin_microns=FT_params["trap_width_um"],
+    )
+
+    ft_for_MIs = gds.FluxTrapSpec(
+        trap_width_microns=FT_params["trap_width_um"],
+        horizontal_separation_microns=FT_params["res_trap_pitch_um"],
+        edge_margin_microns=FT_params["trap_width_um"],
+    )
+
+    ft_for_GP = gds.FluxTrapSpec(
+        trap_width_microns=10.0 * FT_params["trap_width_um"],
+        horizontal_separation_microns=FT_params["res_trap_pitch_um"],
+        edge_margin_microns=10.0 * FT_params["trap_width_um"],
+    )
 
     ## Define and build the feedline launchers
     fl_launch_spec = gds.FeedlineLauncherSpec(
@@ -47,11 +79,11 @@ def build_device(params = CPW_params):
 
     ## Collect all the resonator designs
     all_res = [
-        build_GRres_var3(), ## Mega-Cap at 4.23 GHz
-        build_MLA5G_var2(), ## MLA5G at 4 GHz
-        build_MLA5G_NTvar1(), ## MLA5G narrow trace at 5.96 GHz
-        build_MLA5G_var1(), ## MLA5G at 6 GHz
-        build_GRres_var2(), ## Too high in resonance
+        build_GRres_var3(ind_ft_spec=None,       idc_ft_spec=None, gs_ft_spec=ft_for_GSs), ## Mega-Cap at 4.23 GHz
+        build_MLA5G_var2(ind_ft_spec=ft_for_MIs, idc_ft_spec=None, gs_ft_spec=ft_for_GSs), ## MLA5G at 4.05 GHz
+        build_MLA5G_NTvar1(ind_ft_spec=None,     idc_ft_spec=None, gs_ft_spec=ft_for_GSs), ## MLA5G narrow trace at 5.96 GHz
+        build_MLA5G_var1(ind_ft_spec=ft_for_MIs, idc_ft_spec=None, gs_ft_spec=ft_for_GSs), ## MLA5G at 6.17 GHz
+        build_GRres_var2(ind_ft_spec=None,       idc_ft_spec=None, gs_ft_spec=ft_for_GSs), ## Too high in resonance
     ]
 
     res_offset_um = [-8000, -4000, 0, 4000, 8000]
@@ -88,5 +120,5 @@ if __name__ == "__main__":
     built_device = build_device()
     built_device.plot()
 
-    # gds.write_built_gds("./M20005-DevB1.gds", placed)
+    gds.write_built_gds("./M20005-DevB1.gds", placed)
     plt.show()
