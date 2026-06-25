@@ -17,7 +17,7 @@ CPW_params = {
     "gnd_width": 100.0,
     "sig_bond_width": 357.0,
     "gnd_bond_width": 500.0,
-    "style": "SQMS", #"Caltech"
+    "style": "Caltech" # "SQMS", #
 }
 
 FT_params = {
@@ -76,11 +76,7 @@ def build_device(params = CPW_params):
         chip_height_microns=10000,
         face="left",
         offset_microns=0,
-        ground_pour_spec=gds.GroundPourSpec(
-            chip_edge_border_microns=25,
-            structure_gap_microns=10,
-            flux_trap_spec=None, # ft_for_GP,
-        ),
+        ground_pour_spec=None,
     )
     built_fl = gds.build_straight_feedline(fl_spec)
 
@@ -127,5 +123,5 @@ if __name__ == "__main__":
     built_device = build_device()
     built_device.plot()
 
-    gds.write_built_gds("./M20005-DevB1.gds", built_device)
+    gds.write_built_gds("./M20005-DevA2.gds", built_device)
     plt.show()
