@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import gds_geometry_evaluator as gds
 
 # from build_resonator_GRresolve_var3 import build_resonator as build_res
-from build_resonator_MLA5G_var2 import build_resonator as build_res
+from build_resonator_MLA5G_narrowtrace_var1 import build_resonator as build_res
 
 
 CPW_params = {
@@ -25,8 +25,8 @@ def build_device(params = CPW_params):
         signal_bond_pad_edge_width_microns=CPW_params["sig_bond_width"],
         ground_bond_pad_edge_width_microns=CPW_params["gnd_bond_width"],
         template_path=(
-            "/home/dtemples/GDS-Geometry-Evaluator/assets/feedlines/feedline-launch-caltech-style.gds" if CPW_params["style"].lower()=='caltech' else
-            "/home/dtemples/GDS-Geometry-Evaluator/assets/feedlines/feedline-launch-COH_SQMS-v2-style-positive.gds"
+            "/Users/dtemples/GDS-Geometry-Evaluator/assets/feedlines/feedline-launch-caltech-style.gds" if CPW_params["style"].lower()=='caltech' else
+            "/Users/dtemples/GDS-Geometry-Evaluator/assets/feedlines/feedline-launch-COH_SQMS-v2-style-positive.gds"
             ),
     )
     fl_launch_built = gds.build_feedline_launcher(fl_launch_spec)
