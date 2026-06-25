@@ -2,9 +2,10 @@ import matplotlib.pyplot as plt
 
 import gds_geometry_evaluator as gds
 
-from build_resonator_GRresolve_var1 import build_resonator as build_GRres_var1
-from build_resonator_GRresolve_var2 import build_resonator as build_GRres_var2
+# from build_resonator_GRresolve_var1 import build_resonator as build_GRres_var1
+# from build_resonator_GRresolve_var2 import build_resonator as build_GRres_var2
 from build_resonator_GRresolve_var3 import build_resonator as build_GRres_var3
+from build_resonator_GRresolve_var4 import build_resonator as build_GRres_var4
 from build_resonator_MLA5G_narrowtrace_var1 import build_resonator as build_MLA5G_NTvar1
 from build_resonator_MLA5G_var1 import build_resonator as build_MLA5G_var1
 from build_resonator_MLA5G_var2 import build_resonator as build_MLA5G_var2
@@ -14,9 +15,9 @@ CPW_params = {
     "sig_width": 20.0,
     "gap_width": 10.75,
     "gnd_width": 100.0,
-    "sig_bond_width": 300.0,
-    "gnd_bond_width": 1500.0,
-    "style": "Caltech"
+    "sig_bond_width": 357.0,
+    "gnd_bond_width": 500.0,
+    "style": "SQMS", #"Caltech"
 }
 
 FT_params = {
@@ -64,6 +65,7 @@ def build_device(params = CPW_params):
             "/Users/dtemples/GDS-Geometry-Evaluator/assets/feedlines/feedline-launch-caltech-style.gds" if CPW_params["style"].lower()=='caltech' else
             "/Users/dtemples/GDS-Geometry-Evaluator/assets/feedlines/feedline-launch-COH_SQMS-v2-style-positive.gds"
             ),
+        include_ground_bond_pads=True
     )
     fl_launch_built = gds.build_feedline_launcher(fl_launch_spec)
 
@@ -79,11 +81,11 @@ def build_device(params = CPW_params):
 
     ## Collect all the resonator designs
     all_res = [
-        build_GRres_var3(ind_ft_spec=None,       idc_ft_spec=None, gs_ft_spec=ft_for_GSs), ## Mega-Cap at 4.23 GHz
-        build_MLA5G_var2(ind_ft_spec=ft_for_MIs, idc_ft_spec=None, gs_ft_spec=ft_for_GSs), ## MLA5G at 4.05 GHz
-        build_MLA5G_NTvar1(ind_ft_spec=None,     idc_ft_spec=None, gs_ft_spec=ft_for_GSs), ## MLA5G narrow trace at 5.96 GHz
-        build_MLA5G_var1(ind_ft_spec=ft_for_MIs, idc_ft_spec=None, gs_ft_spec=ft_for_GSs), ## MLA5G at 6.17 GHz
-        build_GRres_var2(ind_ft_spec=None,       idc_ft_spec=None, gs_ft_spec=ft_for_GSs), ## Too high in resonance
+        build_GRres_var3(  ind_ft_spec=None,       idc_ft_spec=ft_for_IDCs, gs_ft_spec=ft_for_GSs), ## Mega-Cap at 4.23 GHz
+        build_MLA5G_var2(  ind_ft_spec=ft_for_MIs, idc_ft_spec=ft_for_IDCs, gs_ft_spec=ft_for_GSs), ## MLA5G at 4.05 GHz
+        build_MLA5G_NTvar1(ind_ft_spec=None,       idc_ft_spec=ft_for_IDCs, gs_ft_spec=ft_for_GSs), ## MLA5G narrow trace at 5.95 GHz
+        build_MLA5G_var1(  ind_ft_spec=ft_for_MIs, idc_ft_spec=ft_for_IDCs, gs_ft_spec=ft_for_GSs), ## MLA5G at 6.17 GHz
+        build_GRres_var4(  ind_ft_spec=None,       idc_ft_spec=ft_for_IDCs, gs_ft_spec=ft_for_GSs), ## Mega-Cap at 5.42 GHz
     ]
 
     res_offset_um = [-8000, -4000, 0, 4000, 8000]
@@ -120,5 +122,5 @@ if __name__ == "__main__":
     built_device = build_device()
     built_device.plot()
 
-    gds.write_built_gds("./M20005-DevB1.gds", placed)
+    gds.write_built_gds("./M20005-DevB1.gds", built_device)
     plt.show()
