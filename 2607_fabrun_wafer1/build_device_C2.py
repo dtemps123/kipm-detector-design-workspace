@@ -76,7 +76,11 @@ def build_device(params = CPW_params):
         chip_height_microns=10000,
         face="left",
         offset_microns=0,
-        ground_pour_spec=None,
+        ground_pour_spec=gds.GroundPourSpec(
+            chip_edge_border_microns=25,
+            structure_gap_microns=10,
+            flux_trap_spec=ft_for_GP,
+        ),
     )
     built_fl = gds.build_straight_feedline(fl_spec)
 
@@ -123,5 +127,5 @@ if __name__ == "__main__":
     built_device = build_device()
     built_device.plot()
 
-    gds.write_built_gds("./M20005-DevA2.gds", built_device)
+    gds.write_built_gds("./M20005-DevC2.gds", built_device)
     plt.show()

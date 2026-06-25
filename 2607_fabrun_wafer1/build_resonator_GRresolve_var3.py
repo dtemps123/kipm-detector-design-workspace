@@ -7,7 +7,7 @@ GRresolve_var3_params = {
     "trace_um":          10.0, # 4.0,
     "gap_um":             8.0,
     "inner_gap_um":      10.0, # 4.0,
-    "res_width_um":     208.0, # 284.0,
+    "res_width_um":     220.0, # 284.0,
     "cap_width_um":    2260.0,
     "ind_height_um":    100.0, # 250.0,
     "cap_trace_um":      10.0,
