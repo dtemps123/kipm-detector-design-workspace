@@ -49,9 +49,9 @@ def build_device(params = CPW_params):
     )
 
     ft_for_GP = gds.FluxTrapSpec(
-        trap_width_microns=10.0 * FT_params["trap_width_um"],
-        horizontal_separation_microns=FT_params["res_trap_pitch_um"],
-        edge_margin_microns=10.0 * FT_params["trap_width_um"],
+        trap_width_microns=20.0, # 10.0 * FT_params["trap_width_um"],
+        horizontal_separation_microns=150.0, # FT_params["res_trap_pitch_um"],
+        edge_margin_microns=10.0, #30.0 * FT_params["trap_width_um"],
     )
 
     ## Define and build the feedline launchers
@@ -81,6 +81,7 @@ def build_device(params = CPW_params):
             structure_gap_microns=10,
             flux_trap_spec=ft_for_GP,
         ),
+        chip_bounds_layer=22,
     )
     built_fl = gds.build_straight_feedline(fl_spec)
 

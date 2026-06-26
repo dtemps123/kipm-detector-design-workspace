@@ -77,6 +77,7 @@ def build_device(params = CPW_params):
         face="left",
         offset_microns=0,
         ground_pour_spec=None,
+        chip_bounds_layer=22,
     )
     built_fl = gds.build_straight_feedline(fl_spec)
 

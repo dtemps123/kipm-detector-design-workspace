@@ -17,7 +17,7 @@ CPW_params = {
     "gnd_width": 100.0,
     "sig_bond_width": 357.0,
     "gnd_bond_width": 500.0,
-    "style": "SQMS", #"Caltech"
+    "style": "SQMS", # "Caltech" # 
 }
 
 FT_params = {
@@ -49,9 +49,9 @@ def build_device(params = CPW_params):
     )
 
     ft_for_GP = gds.FluxTrapSpec(
-        trap_width_microns=10.0 * FT_params["trap_width_um"],
-        horizontal_separation_microns=FT_params["res_trap_pitch_um"],
-        edge_margin_microns=10.0 * FT_params["trap_width_um"],
+        trap_width_microns=250.0, # 10.0 * FT_params["trap_width_um"],
+        horizontal_separation_microns=10.0, # FT_params["res_trap_pitch_um"],
+        edge_margin_microns=3.0, #30.0 * FT_params["trap_width_um"],
     )
 
     ## Define and build the feedline launchers
@@ -79,7 +79,7 @@ def build_device(params = CPW_params):
         ground_pour_spec=gds.GroundPourSpec(
             chip_edge_border_microns=25,
             structure_gap_microns=10,
-            flux_trap_spec=None, # ft_for_GP,
+            flux_trap_spec=ft_for_GP,
         ),
         chip_bounds_layer=22,
     )
@@ -128,5 +128,5 @@ if __name__ == "__main__":
     built_device = build_device()
     built_device.plot()
 
-    gds.write_built_gds("./M20005-DevB1.gds", built_device)
+    gds.write_built_gds("./M20005-DevB3.gds", built_device)
     plt.show()
