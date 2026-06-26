@@ -17,7 +17,8 @@ CPW_params = {
     "gnd_width": 100.0,
     "sig_bond_width": 357.0,
     "gnd_bond_width": 500.0,
-    "style": "SQMS", #"Caltech"
+    "bond_pad_width_gap": 76.0,
+    "style": "SQMS", # "Caltech" # 
 }
 
 FT_params = {
@@ -61,6 +62,7 @@ def build_device(params = CPW_params):
         ground_conductor_width_microns=CPW_params["gnd_width"],
         signal_bond_pad_edge_width_microns=CPW_params["sig_bond_width"],
         ground_bond_pad_edge_width_microns=CPW_params["gnd_bond_width"],
+        bond_pad_gap_width_microns=CPW_params["bond_pad_width_gap"],
         template_path=(
             "/Users/dtemples/GDS-Geometry-Evaluator/assets/feedlines/feedline-launch-caltech-style.gds" if CPW_params["style"].lower()=='caltech' else
             "/Users/dtemples/GDS-Geometry-Evaluator/assets/feedlines/feedline-launch-COH_SQMS-v2-style-positive.gds"
